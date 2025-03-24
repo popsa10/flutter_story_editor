@@ -25,9 +25,12 @@ class FlutterStoryEditor extends StatefulWidget {
   final Function(List<File>)? onSaveClickListener; // Callback when save action is triggered.
   final TextEditingController? captionController; // Controller for handling caption text input.
   final FlutterStoryEditorController controller; // Custom controller for managing editor state.
-  final bool? trimVideoOnAdjust; // Flag to determine if video should be trimmed when adjusted.
+  final bool? trimVideoOnAdjust;
+  final Widget cropWidget;// Flag to determine if video should be trimmed when adjusted.
+  final Widget filterWidget;// Flag to determine if video should be trimmed when adjusted.
+  final Widget textWidget;// Flag to determine if video should be trimmed when adjusted.
   const FlutterStoryEditor(
-      {super.key, this.selectedFiles, this.onSaveClickListener, this.captionController, required this.controller, this.trimVideoOnAdjust=false});
+      {super.key, this.selectedFiles, this.onSaveClickListener, this.captionController, required this.controller, this.trimVideoOnAdjust=false, required this.cropWidget, required this.filterWidget, required this.textWidget});
 
   @override
   State<FlutterStoryEditor> createState() => _FlutterStoryEditorState();
@@ -291,6 +294,9 @@ class _FlutterStoryEditorState extends State<FlutterStoryEditor> {
                               // If selected mode was NONE show main control views
                             else
                               MainControlsView(
+                                cropWidget: widget.cropWidget,
+                                filterWidget: widget.filterWidget,
+                                textWidget: widget.textWidget,
                                 stickerList: stickerListValue,
                                 onStickersClickListener: () {
                                   widget.controller.setStoryEditingModeSelected = StoryEditingModes.stickers;

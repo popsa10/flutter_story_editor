@@ -38,7 +38,10 @@ class MainControlsView extends StatefulWidget {
   final List<Stroke> lines; // List of stroke actions for drawing.
   final bool isSaving; // Flag to indicate if a save operation is in progress.
   final bool isFocused; // Flag to check if the keyboard is focused.
-  final FocusNode? captionFocusNode; // Optional focus node for the caption input.
+  final FocusNode? captionFocusNode;// Optional focus node for the caption input.
+  final Widget cropWidget;
+  final Widget filterWidget;
+  final Widget textWidget;
 
 
   const MainControlsView(
@@ -59,6 +62,9 @@ class MainControlsView extends StatefulWidget {
       required this.onTextClickListener,
       required this.lines,
       required this.isSaving,
+      required this.filterWidget,
+      required this.cropWidget,
+      required this.textWidget,
         required this.textList,
         this.captionFocusNode,
         required this.onStickersClickListener, required this.stickerList,
@@ -131,12 +137,12 @@ class _MainControlsViewState extends State<MainControlsView> {
     return Stack(
       alignment: Alignment.center,
       children: [
+        PositionedDirectional(top: 12,end: 28,child: GestureDetector(onTap: () {
+          Navigator.pop(context);
+        },child: Icon(Icons.close,color: Colors.white,size: 24,))),
         for (File file in widget.selectedFiles!)
           if (!(isVideo(file)))
-            Align(
-              alignment: Alignment.topCenter,
-              child: _buildTop(),
-            ),
+            PositionedDirectional(top: 47,start: 12,child: _buildTop()),
         Align(
           alignment: Alignment.bottomCenter,
           child: _buildBottom(),
@@ -152,6 +158,8 @@ class _MainControlsViewState extends State<MainControlsView> {
       textList: widget.textList,
       controller: widget.controller,
       lines: widget.lines,
+      filterIcon: widget.filterWidget,
+      textIcon: widget.textWidget,
       onTextClickListener: () {
         widget.onTextClickListener();
       },
@@ -161,6 +169,7 @@ class _MainControlsViewState extends State<MainControlsView> {
       onPaintClickListener: () {
         widget.onPaintClickListener();
       },
+      cropIcon: widget.cropWidget,
       onUndoClickListener: widget.onUndoClickListener,
       currentPageIndex: widget.currentPageIndex,
       selectedFilters: widget.selectedFilters,
@@ -183,49 +192,15 @@ class _MainControlsViewState extends State<MainControlsView> {
           Expanded(
             child: Container(),
           ),
-          if(widget.isFocused == false)
-            isVideo(widget.selectedFiles![widget.currentPageIndex])
-              ? Container()
-              : FilterTextView(controller: widget.controller),
-          const SizedBox(
-            height: 5,
-          ),
-          Column(
-            children: [
-              if(widget.isFocused == false)
-                ThumbnailView(
-                controller: widget.controller,
-                onThumbnailTapListener: (thumbnailItemIndex) {
-                  widget.pageController.jumpToPage(thumbnailItemIndex);
-                },
-                currentPageIndex: widget.currentPageIndex,
-                thumbnails: _thumbnails,
-                selectedFiles: widget.uiViewEditableFiles,
-                selectedFilters: widget.selectedFilters,
-              ),
-              const SizedBox(
-                height: 10,
-              ),
-
-              if (widget.controller.editingModeSelected == StoryEditingModes.filters)
-                FiltersView(
-                  onFilterChange: (filter) {
-                    widget.onFilterChange(filter);
-                  },
-                  selectedFilters: widget.selectedFilters,
-                  currentPageIndex: widget.currentPageIndex,
-                  selectedFiles: originalFiles,
-                )
-              else
-                if(widget.isFocused == false)
-                CaptionView(
-                  focusNode: widget.captionFocusNode,
-                  isSaving: widget.isSaving,
-                  captionController: widget.captionController!,
-                  onSaveClickListener: widget.onSaveClickListener!,
-                )
-            ],
-          ),
+          if (widget.controller.editingModeSelected == StoryEditingModes.filters)
+            FiltersView(
+              onFilterChange: (filter) {
+                widget.onFilterChange(filter);
+              },
+              selectedFilters: widget.selectedFilters,
+              currentPageIndex: widget.currentPageIndex,
+              selectedFiles: originalFiles,
+            ),
         ],
       ),
     );
