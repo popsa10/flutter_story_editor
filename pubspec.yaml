@@ -21,7 +21,6 @@ dependencies:
   video_thumbnail: ^0.5.3
   hsv_color_pickers: ^0.4.0
   perfect_freehand: ^2.3.2
-
   file_picker: ^9.2.1
   path: ^1.9.0
   path_provider: ^2.1.3
