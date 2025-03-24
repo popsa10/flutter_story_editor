@@ -210,9 +210,7 @@ class _MainControlsViewState extends State<MainControlsView> {
             child: Row(
               children: [
                 Expanded(
-                  child: GestureDetector(onTap: (){
-                    widget.onSaveClickListener;
-                  },child: widget.done),
+                  child: GestureDetector(onTap:  widget.onSaveClickListener,child: widget.done),
                 ),
                 SizedBox(width: 24,),
                 Expanded(child: widget.cancel),
