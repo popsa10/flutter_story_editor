@@ -17,7 +17,7 @@ dependencies:
     sdk: flutter
   image_cropper: ^9.0.0
   video_player: ^2.8.6
-  video_trimmer: ^3.0.0
+  video_trimmer: ^4.0.2
   video_thumbnail: ^0.5.3
   hsv_color_pickers: ^0.4.0
   perfect_freehand: ^2.3.2
@@ -31,9 +31,9 @@ dependencies:
 
 
 dev_dependencies:
-  flutter_test:
-    sdk: flutter
+
   flutter_lints: ^5.0.0
+  intl: ^0.20.2
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
