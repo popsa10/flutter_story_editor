@@ -28,9 +28,12 @@ class FlutterStoryEditor extends StatefulWidget {
   final bool? trimVideoOnAdjust;
   final Widget cropWidget;// Flag to determine if video should be trimmed when adjusted.
   final Widget filterWidget;// Flag to determine if video should be trimmed when adjusted.
-  final Widget textWidget;// Flag to determine if video should be trimmed when adjusted.
+  final Widget textWidget;
+  final Color bottomColor;
+  final Widget done;// Flag to determine if video should be trimmed when adjusted.
+  final Widget cancel;// Flag to determine if video should be trimmed when adjusted.
   const FlutterStoryEditor(
-      {super.key, this.selectedFiles, this.onSaveClickListener, this.captionController, required this.controller, this.trimVideoOnAdjust=false, required this.cropWidget, required this.filterWidget, required this.textWidget});
+      {super.key, this.selectedFiles, this.onSaveClickListener, this.captionController, required this.controller, this.trimVideoOnAdjust=false, required this.cropWidget, required this.filterWidget, required this.textWidget, required this.bottomColor, required this.done, required this.cancel});
 
   @override
   State<FlutterStoryEditor> createState() => _FlutterStoryEditorState();
@@ -184,25 +187,16 @@ class _FlutterStoryEditorState extends State<FlutterStoryEditor> {
                                     );
                                   } else {
                                     // if the selected file was image show [ImageView]
-                                    return GestureDetector(
-                                      onVerticalDragUpdate: (details) {
-                                        if (details.delta.dy < 0) {
-                                          widget.controller.setStoryEditingModeSelected = StoryEditingModes.filters;
-                                        } else if (details.delta.dy > 0) {
-                                          widget.controller.setStoryEditingModeSelected = StoryEditingModes.none;
-                                        }
-                                      },
-                                      child: RepaintBoundary(
-                                        key: _imageKeys[storyIndex],
-                                        child: ImageView(
-                                          storyIndex: storyIndex,
-                                          textList: textListValue,
-                                          stickerList: stickerListValue,
-                                          lines: widget.controller.uiEditableFileLines[storyIndex],
-                                          controller: widget.controller,
-                                          file: singleStory,
-                                          filter: selectedFilters[storyIndex],
-                                        ),
+                                    return RepaintBoundary(
+                                      key: _imageKeys[storyIndex],
+                                      child: ImageView(
+                                        storyIndex: storyIndex,
+                                        textList: textListValue,
+                                        stickerList: stickerListValue,
+                                        lines: widget.controller.uiEditableFileLines[storyIndex],
+                                        controller: widget.controller,
+                                        file: singleStory,
+                                        filter: selectedFilters[storyIndex],
                                       ),
                                     );
                                   }
@@ -297,6 +291,9 @@ class _FlutterStoryEditorState extends State<FlutterStoryEditor> {
                                 cropWidget: widget.cropWidget,
                                 filterWidget: widget.filterWidget,
                                 textWidget: widget.textWidget,
+                                bottomColor: widget.bottomColor,
+                                cancel: widget.cancel,
+                                done: widget.done,
                                 stickerList: stickerListValue,
                                 onStickersClickListener: () {
                                   widget.controller.setStoryEditingModeSelected = StoryEditingModes.stickers;

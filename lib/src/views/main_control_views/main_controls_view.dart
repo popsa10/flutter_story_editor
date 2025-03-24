@@ -42,6 +42,9 @@ class MainControlsView extends StatefulWidget {
   final Widget cropWidget;
   final Widget filterWidget;
   final Widget textWidget;
+  final Widget done;
+  final Widget cancel;
+  final Color bottomColor;
 
 
   const MainControlsView(
@@ -67,7 +70,7 @@ class MainControlsView extends StatefulWidget {
       required this.textWidget,
         required this.textList,
         this.captionFocusNode,
-        required this.onStickersClickListener, required this.stickerList,
+        required this.onStickersClickListener, required this.stickerList, required this.done, required this.cancel, required this.bottomColor,
        });
 
   @override
@@ -201,6 +204,23 @@ class _MainControlsViewState extends State<MainControlsView> {
               currentPageIndex: widget.currentPageIndex,
               selectedFiles: originalFiles,
             ),
+          Container(
+            color: widget.bottomColor,
+            padding: EdgeInsets.all(16),
+            child: Row(
+              children: [
+                Expanded(
+                  child: GestureDetector(onTap: (){
+                    widget.onSaveClickListener;
+                  },child: widget.done),
+                ),
+                SizedBox(width: 24,),
+                Expanded(child: widget.cancel),
+              ],
+            ),
+
+          )
+
         ],
       ),
     );

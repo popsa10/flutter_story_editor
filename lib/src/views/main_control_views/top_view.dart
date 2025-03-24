@@ -55,7 +55,6 @@ class _TopViewState extends State<TopView> {
     return !isVideo(widget.selectedFile) ? Column(
       mainAxisSize: MainAxisSize.min,
       children: [
-        if (!isVideo(widget.selectedFile))
               // Undo icon is shown if there are any changes that can be undone.
               widget.selectedFilters[widget.currentPageIndex] != noFiler || widget.lines.isNotEmpty || widget.textList[widget.currentPageIndex].isNotEmpty || widget.stickerList[widget.currentPageIndex].isNotEmpty ? GestureDetector(
                 onTap: widget.onUndoClickListener,
@@ -73,7 +72,7 @@ class _TopViewState extends State<TopView> {
                   onTap: widget.onTapCropListener,
                   child:  widget.cropIcon),
               const SizedBox(
-                width: 16,
+                height: 16,
               ),
 
               GestureDetector(
@@ -81,11 +80,15 @@ class _TopViewState extends State<TopView> {
                 child: widget.textIcon,
               ),
               const SizedBox(
-                width: 16,
+                height: 16,
               ),
               GestureDetector(
                 onTap: (){
-                  widget.controller.setStoryEditingModeSelected = StoryEditingModes.filters;
+                  if(widget.controller.editingModeSelected == StoryEditingModes.filters) {
+                    widget.controller.setStoryEditingModeSelected = StoryEditingModes.none;
+                  }else{
+                    widget.controller.setStoryEditingModeSelected = StoryEditingModes.filters;
+                  }
                 },
                 child: widget.filterIcon,
           ),
