@@ -17,7 +17,7 @@ dependencies:
     sdk: flutter
   image_cropper: ^9.0.0
   video_player: ^2.8.6
-  video_trimmer: ^3.0.1
+  video_trimmer_pro: ^3.0.1
   video_thumbnail: ^0.5.3
   hsv_color_pickers: ^0.4.0
   perfect_freehand: ^2.3.2
