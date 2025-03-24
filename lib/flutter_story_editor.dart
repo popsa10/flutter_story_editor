@@ -381,12 +381,11 @@ class _FlutterStoryEditorState extends State<FlutterStoryEditor> {
 
                                   for (int i = 0; i < widget.selectedFiles!.length; i++) {
                                     if (!isVideo(widget.selectedFiles![i])) {
-                                      await _pageController.animateToPage(i,
-                                          duration: const Duration(milliseconds: 300), curve: Curves.ease);
-
-                                      // Waiting for page transition
-                                      await Future.delayed(const Duration(milliseconds: 500));
-
+                                      // await _pageController.animateToPage(i,
+                                      //     duration: const Duration(milliseconds: 300), curve: Curves.ease);
+                                      //
+                                      // // Waiting for page transition
+                                      // await Future.delayed(const Duration(milliseconds: 500));
                                       File? snapshotFile = await convertWidgetToImage(_imageKeys[i]);
                                       if (snapshotFile != null) {
                                         setState(() {
