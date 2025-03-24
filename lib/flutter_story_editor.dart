@@ -377,26 +377,26 @@ class _FlutterStoryEditorState extends State<FlutterStoryEditor> {
                                 selectedFilters: selectedFilters,
                                 uiViewEditableFiles: uiViewEditableFiles!,
                                 onSaveClickListener: () async {
-                                  // setState(() => isSaving = true);
-                                  //
-                                  // for (int i = 0; i < widget.selectedFiles!.length; i++) {
-                                  //   if (!isVideo(widget.selectedFiles![i])) {
-                                  //     await _pageController.animateToPage(i,
-                                  //         duration: const Duration(milliseconds: 300), curve: Curves.ease);
-                                  //
-                                  //     // Waiting for page transition
-                                  //     await Future.delayed(const Duration(milliseconds: 500));
-                                  //
-                                  //     File? snapshotFile = await convertWidgetToImage(_imageKeys[i]);
-                                  //     if (snapshotFile != null) {
-                                  //       setState(() {
-                                  //         widget.selectedFiles![i] = snapshotFile;
-                                  //       });
-                                  //     }
-                                  //   }
-                                  // }
-                                  //
-                                  // setState(() => isSaving = false);
+                                  setState(() => isSaving = true);
+
+                                  for (int i = 0; i < widget.selectedFiles!.length; i++) {
+                                    if (!isVideo(widget.selectedFiles![i])) {
+                                      await _pageController.animateToPage(i,
+                                          duration: const Duration(milliseconds: 300), curve: Curves.ease);
+
+                                      // Waiting for page transition
+                                      await Future.delayed(const Duration(milliseconds: 500));
+
+                                      File? snapshotFile = await convertWidgetToImage(_imageKeys[i]);
+                                      if (snapshotFile != null) {
+                                        setState(() {
+                                          widget.selectedFiles![i] = snapshotFile;
+                                        });
+                                      }
+                                    }
+                                  }
+
+                                  setState(() => isSaving = false);
 
                                   if (widget.selectedFiles != null && widget.selectedFiles!.isNotEmpty) {
                                     widget.onSaveClickListener!(widget.selectedFiles!);
