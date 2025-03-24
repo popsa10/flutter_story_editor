@@ -29,6 +29,7 @@ dependencies:
   vector_math: ^2.1.4
   font_awesome_flutter: ^10.7.0
   material_design_icons_flutter: ^7.0.7296
+  intl:
 
 dev_dependencies:
   flutter_test:
