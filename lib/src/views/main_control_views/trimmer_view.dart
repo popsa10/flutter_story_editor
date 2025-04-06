@@ -85,22 +85,22 @@ class TrimmerViewState extends State<TrimmerView> with AutomaticKeepAliveClientM
     super.initState();
     _loadVideo(); // Initial video load.
 
-    // // Listener to stop video playback when swiping away from the page.
-    // widget.pageController.addListener(() async {
-    //   if (widget.pageController.page!.round() != widget.pageIndex &&
-    //       _isPlaying) {
-    //     await _trimmer.videoPlaybackControl(
-    //         startValue: _startValue, endValue: _endValue);
-    //     setState(() => _isPlaying = false);
-    //   }
-    // });
+    // Listener to stop video playback when swiping away from the page.
+    widget.pageController.addListener(() async {
+      if (widget.pageController.page!.round() != widget.pageIndex &&
+          _isPlaying) {
+        await _trimmer.videoPlaybackControl(
+            startValue: _startValue, endValue: _endValue);
+        setState(() => _isPlaying = false);
+      }
+    });
   }
 
-  // @override
-  // void dispose() {
-  //   _trimmer.dispose(); // Clean up the trimmer resources.
-  //   super.dispose();
-  // }
+  @override
+  void dispose() {
+    _trimmer.dispose(); // Clean up the trimmer resources.
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
