@@ -178,7 +178,8 @@ class _MainControlsViewState extends State<MainControlsView> {
       selectedFilters: widget.selectedFilters,
       selectedFile: widget.selectedFiles![widget.currentPageIndex],
       onTapCropListener: () {
-        _cropImage(context);
+
+          _cropImage(context);
       },
     );
   }

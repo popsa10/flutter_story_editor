@@ -52,7 +52,7 @@ class TopView extends StatefulWidget {
 class _TopViewState extends State<TopView> {
   @override
   Widget build(BuildContext context) {
-    return !isVideo(widget.selectedFile) ? Column(
+    return  Column(
       mainAxisSize: MainAxisSize.min,
       children: [
               // Undo icon is shown if there are any changes that can be undone.
@@ -67,14 +67,15 @@ class _TopViewState extends State<TopView> {
               const SizedBox(
                 height: 16,
               ),
-              // Crop icon for image editing.
-              GestureDetector(
-                  onTap: widget.onTapCropListener,
-                  child:  widget.cropIcon),
-              const SizedBox(
-                height: 16,
-              ),
-
+              if(!isVideo(widget.selectedFile))
+              ...[
+                GestureDetector(
+                    onTap: widget.onTapCropListener,
+                    child:  widget.cropIcon),
+                const SizedBox(
+                  height: 16,
+                ),
+              ],
               GestureDetector(
                 onTap: widget.onTextClickListener,
                 child: widget.textIcon,
@@ -93,6 +94,6 @@ class _TopViewState extends State<TopView> {
                 child: widget.filterIcon,
           ),
       ],
-    ) : SizedBox();
+    );
   }
 }

@@ -85,22 +85,22 @@ class TrimmerViewState extends State<TrimmerView> with AutomaticKeepAliveClientM
     super.initState();
     _loadVideo(); // Initial video load.
 
-    // Listener to stop video playback when swiping away from the page.
-    widget.pageController.addListener(() async {
-      if (widget.pageController.page!.round() != widget.pageIndex &&
-          _isPlaying) {
-        await _trimmer.videoPlaybackControl(
-            startValue: _startValue, endValue: _endValue);
-        setState(() => _isPlaying = false);
-      }
-    });
+    // // Listener to stop video playback when swiping away from the page.
+    // widget.pageController.addListener(() async {
+    //   if (widget.pageController.page!.round() != widget.pageIndex &&
+    //       _isPlaying) {
+    //     await _trimmer.videoPlaybackControl(
+    //         startValue: _startValue, endValue: _endValue);
+    //     setState(() => _isPlaying = false);
+    //   }
+    // });
   }
 
-  @override
-  void dispose() {
-    _trimmer.dispose(); // Clean up the trimmer resources.
-    super.dispose();
-  }
+  // @override
+  // void dispose() {
+  //   _trimmer.dispose(); // Clean up the trimmer resources.
+  //   super.dispose();
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -119,79 +119,79 @@ class TrimmerViewState extends State<TrimmerView> with AutomaticKeepAliveClientM
                   painter: SimpleSketcher(widget.lines), // Overlays custom sketches on the video.
                   child: Container(),
                 ),
-                Column(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  mainAxisSize: MainAxisSize.max,
-                  children: <Widget>[
-                    // Trim viewer and editor.
-                    Container(
-                      margin: const EdgeInsets.only(top: 80, left: 6, right: 6),
-                      child: Center(
-                        child: TrimViewer(
-                            editorProperties: const TrimEditorProperties(
-                            ),
-                            areaProperties: const TrimAreaProperties(),
-                            trimmer: _trimmer,
-                            viewerHeight: 50.0,
-                            viewerWidth: MediaQuery.of(context).size.width,
-                            maxVideoLength: const Duration(seconds: 30),
-                            onChangeStart: (value) => _startValue = value,
-                            onChangeEnd: (value) {
-                              _endValue = value;
-                              widget.trimOnAdjust == true
-                                  ? _debounceTrim()
-                                  : null;
-                            },
-                            onChangePlaybackState: (value) {
-                              setState(() => _isPlaying = value);
-                            }),
-                      ),
-                    ),
-                    const SizedBox(height: 10),
-                    // Controls for manual save and progress indicator.
-                    if (widget.trimOnAdjust == false)
-                      Column(
-                        children: [
-                          Visibility(
-                            visible: _progressVisibility,
-                            child: const LinearProgressIndicator(
-                              backgroundColor: tealColor,
-                            ),
-                          ),
-                          ElevatedButton(
-                            onPressed: _progressVisibility
-                                ? null
-                                : () async {
-                              _trimVideo();
-                            },
-                            child: const Text("SAVE"),
-                          ),
-                        ],
-                      )
-                  ],
-                ),
-
-                // Play button to toggle video playback.
-                TextButton(
-                  child: _isPlaying
-                      ? Container()
-                      : const Icon(
-                    Icons.play_arrow,
-                    size: 80.0,
-                    color: Colors.white,
-                  ),
-                  onPressed: () async {
-                    await _trimmer.videoPlaybackControl(
-                      startValue: _startValue,
-                      endValue: _endValue,
-                    );
-                    if (mounted) {
-                      setState(() {
-                        _isPlaying = false;
-                      });
-                    }
-                  },
-                ),
+                // Column(
+                //   mainAxisAlignment: MainAxisAlignment.start,
+                //   mainAxisSize: MainAxisSize.max,
+                //   children: <Widget>[
+                //     // Trim viewer and editor.
+                //     Container(
+                //       margin: const EdgeInsets.only(top: 80, left: 6, right: 6),
+                //       child: Center(
+                //         child: TrimViewer(
+                //             editorProperties: const TrimEditorProperties(
+                //             ),
+                //             areaProperties: const TrimAreaProperties(),
+                //             trimmer: _trimmer,
+                //             viewerHeight: 50.0,
+                //             viewerWidth: MediaQuery.of(context).size.width,
+                //             maxVideoLength: const Duration(seconds: 30),
+                //             onChangeStart: (value) => _startValue = value,
+                //             onChangeEnd: (value) {
+                //               _endValue = value;
+                //               widget.trimOnAdjust == true
+                //                   ? _debounceTrim()
+                //                   : null;
+                //             },
+                //             onChangePlaybackState: (value) {
+                //               setState(() => _isPlaying = value);
+                //             }),
+                //       ),
+                //     ),
+                //     const SizedBox(height: 10),
+                //     // Controls for manual save and progress indicator.
+                //     if (widget.trimOnAdjust == false)
+                //       Column(
+                //         children: [
+                //           Visibility(
+                //             visible: _progressVisibility,
+                //             child: const LinearProgressIndicator(
+                //               backgroundColor: tealColor,
+                //             ),
+                //           ),
+                //           ElevatedButton(
+                //             onPressed: _progressVisibility
+                //                 ? null
+                //                 : () async {
+                //               _trimVideo();
+                //             },
+                //             child: const Text("SAVE"),
+                //           ),
+                //         ],
+                //       )
+                //   ],
+                // ),
+                //
+                // // Play button to toggle video playback.
+                // TextButton(
+                //   child: _isPlaying
+                //       ? Container()
+                //       : const Icon(
+                //     Icons.play_arrow,
+                //     size: 80.0,
+                //     color: Colors.white,
+                //   ),
+                //   onPressed: () async {
+                //     await _trimmer.videoPlaybackControl(
+                //       startValue: _startValue,
+                //       endValue: _endValue,
+                //     );
+                //     if (mounted) {
+                //       setState(() {
+                //         _isPlaying = false;
+                //       });
+                //     }
+                //   },
+                // ),
 
 
               ],
