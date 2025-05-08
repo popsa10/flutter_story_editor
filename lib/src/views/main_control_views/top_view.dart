@@ -66,7 +66,7 @@ class _TopViewState extends State<TopView> {
                     color: Colors.white,
                   )),
               // Conditional rendering if the selected file is not a video.
-              if (!isVideo(widget.selectedFile))
+
                 Row(
                   children: [
                     // Undo icon is shown if there are any changes that can be undone.
@@ -82,16 +82,16 @@ class _TopViewState extends State<TopView> {
                       width: 20,
                     ),
                     // Crop icon for image editing.
-                    GestureDetector(
-                        onTap: widget.onTapCropListener,
-                        child: const Icon(
-                          Icons.crop,
-                          size: 30,
-                          color: Colors.white,
-                        )),
-                    const SizedBox(
-                      width: 20,
-                    ),
+                    //GestureDetector(
+                    //     onTap: widget.onTapCropListener,
+                    //     child: const Icon(
+                    //       Icons.crop,
+                    //       size: 30,
+                    //       color: Colors.white,
+                    //     )),
+                    // const SizedBox(
+                    //   width: 20,
+                    // ),
                     // Icon for accessing sticker controls.
                     GestureDetector(
                       onTap: widget.onStickersClickListener,
